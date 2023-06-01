@@ -1,0 +1,38 @@
+---
+- name: Register aide Errors
+  ansible.builtin.shell:
+    cmd: "/usr/sbin/aide -V5 -C -c {{ aideconf }} | egrep '^d|^f'"
+  register: values
+  when: true
+  failed_when: values.rc > 1
+
+- name: Debug
+  ansible.builtin.debug:
+    msg: "{{ item.split(':')[0] }}"
+  loop: "{{ values.stdout_lines }}"
+
+- name: Fix the Directory(s)
+  ansible.builtin.include_tasks:
+    file: fix.yml
+  vars:
+    afile: "{{ item.split(':')[1].split(' ')[1] }}"
+  loop: "{{ values.stdout_lines }}"
+  when: (values.stdout is defined) and (item.split()[0] == 'd') and ('p' or 'u' or 'g' or 'S' in item.split(':')[0])
+
+- name: Fix the File(s)
+  ansible.builtin.include_tasks:
+    file: fix.yml
+  vars:
+    afile: "{{ item.split(':')[1].split(' ')[1] }}"
+  loop: "{{ values.stdout_lines }}"
+  when: (item is defined) and (not "C" in item.split(':')[0]) and (item.split()[0] == 'f') and ('p' or 'u' or 'g' or 'S' in item.split(':')[0])
+
+- name: Replace File(s)
+  ansible.builtin.include_tasks:
+    file: replace.yml
+  vars:
+    afile: "{{ item.split(':')[1].split(' ')[1] }}"
+    resultf: "{{ default('default when undef or null', true) }}"
+    resutlt: "{{ default('default when undef or null', true) }}"
+  loop: "{{ values.stdout_lines }}"
+  when: (item is defined) and ("C" in item.split(':')[0]) and (item.split()[0] == 'f')

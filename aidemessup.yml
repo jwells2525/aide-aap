@@ -1,0 +1,8 @@
+---
+- name: Run the Aide Mess Up
+  hosts: "{{ aidehost }}"
+  become: true
+  gather_facts: false
+
+  roles:
+    - role: aidemessup

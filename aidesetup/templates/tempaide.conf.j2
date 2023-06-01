@@ -1,0 +1,23 @@
+@@define DBDIR /var/lib/aide
+@@define LOGDIR /var/log/aide
+
+# The location of the database to be read.
+database=file:@@{DBDIR}/{{ aidename }}.db.gz
+
+# The location of the database to be written.
+database_out=file:@@{DBDIR}/{{ aidename }}.db.new.gz
+
+# Whether to gzip the output to database
+gzip_dbout=yes
+
+# Default.
+verbose=5
+
+report_url=file:@@{LOGDIR}/{{ aidename }}.log
+report_url=stdout
+
+MYRULE = p+u+g+selinux+sha512
+
+/tmp/redhat.txt$ MYRULE
+/tmp/other.txt$ MYRULE
+/tmp/temp$ MYRULE

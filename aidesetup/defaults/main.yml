@@ -1,0 +1,9 @@
+---
+# defaults file for aidesetup
+# Name to use on the aide files. For Default Configuration, name should just be aide.
+aidename: fixemaide
+
+aapip: 3.145.14.142
+
+# Adjective for use in a test file
+adj: Awesome

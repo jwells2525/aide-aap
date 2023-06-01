@@ -1,0 +1,59 @@
+---
+# tasks file for aidesetup
+- name: Install Aide
+  ansible.builtin.dnf:
+    name: aide
+    state: present
+
+- name: Copy Customized Aide Conf Template
+  ansible.builtin.template:
+    src: tempaide.conf.j2
+    dest: /etc/{{ aidename }}.conf
+    owner: root
+    group: root
+    mode: 0600
+
+- name: Copy tester file
+  ansible.builtin.copy:
+    src: other.txt
+    dest: /tmp/other.txt
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Copy tester template
+  ansible.builtin.template:
+    src: redhat.txt.j2
+    dest: /tmp/redhat.txt
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Make Temp Dir
+  ansible.builtin.file:
+    path: /tmp/temp
+    owner: root
+    group: root
+    mode: '0777'
+    state: directory
+
+- name: Initalize Aide Database
+  ansible.builtin.command: "aide -c /etc/{{ aidename }}.conf --init"
+
+- name: Move New DB to DB
+  ansible.builtin.copy:
+    remote_src: true
+    src: /var/lib/aide/{{ aidename }}.db.new.gz
+    dest: /var/lib/aide/{{ aidename }}.db.gz
+    owner: root
+    group: root
+    mode: 0600
+
+- name: Copy cron script
+  ansible.builtin.template:
+    src: aidecron.j2
+    dest: /root/aidecron
+    owner: root
+    group: root
+    mode: 0700
+

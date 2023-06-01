@@ -1,0 +1,7 @@
+---
+# defaults file for aidemessup
+# Name to use on the aide files. For Default Configuration, name should just be aide.
+aidename: fixemaide
+
+# Adjective for use in a test file
+adj: OK

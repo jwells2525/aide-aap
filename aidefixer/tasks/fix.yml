@@ -1,0 +1,15 @@
+---
+- name: Set All
+  ansible.builtin.include_tasks:
+    file: setAll.yml
+
+- name: Fix {{ afile }}
+  ansible.builtin.file:
+    path: "{{ afile }}"
+    owner: "{{ auid.stdout }}"
+    group: "{{ agid.stdout }}"
+    mode: "{{ aperms.stdout }}"
+    seuser: "{{ aselinux.stdout.split(':')[0] }}"
+    serole: "{{ aselinux.stdout.split(':')[1] }}"
+    setype: "{{ aselinux.stdout.split(':')[2] }}"
+    selevel: "{{ aselinux.stdout.split(':')[3] }}"

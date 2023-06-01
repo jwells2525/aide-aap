@@ -1,0 +1,25 @@
+---
+# tasks file for aidemessup
+- name: Copy tester file
+  ansible.builtin.copy:
+    src: other.txt
+    dest: /tmp/other.txt
+    owner: daemon
+    group: daemon
+    mode: 0777
+
+- name: Copy tester template
+  ansible.builtin.template:
+    src: redhat.txt.j2
+    dest: /tmp/redhat.txt
+    owner: root
+    group: daemon
+    mode: 2607
+    setype: mnt_t
+
+- name: Change /tmp
+  ansible.builtin.file:
+    path: /tmp/temp
+    owner: daemon
+    group: daemon
+    mode: 0007

@@ -1,0 +1,5 @@
+if [[ $(aide -V5 -C -c /etc/{{ aidename }}.conf | grep "AIDE found NO differences" | wc -l) -eq 0 ]]
+then 
+  curl -k -X POST -u admin:$(cat /root/passFile.txt | base64 --decode) https://{{ aapip }}/api/v2/job_templates/17/launch/ -H "Content-Type: application/json" -d '{"extra_vars": "{aidehost: '$(hostname | cut -d\. -f1)'}"}'
+fi
+

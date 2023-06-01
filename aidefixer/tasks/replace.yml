@@ -1,0 +1,30 @@
+---
+- name: Set All
+  ansible.builtin.include_tasks:
+    file: setAll.yml
+
+- name: Replace File
+  ansible.builtin.copy:
+    src: "{{ afile.split('/')[-1] }}"
+    dest: "{{ afile }}"
+    owner: "{{ auid.stdout }}"
+    group: "{{ agid.stdout }}"
+    mode: "{{ aperms.stdout }}"
+    seuser: "{{ aselinux.stdout.split(':')[0] }}"
+    serole: "{{ aselinux.stdout.split(':')[1] }}"
+    setype: "{{ aselinux.stdout.split(':')[2] }}"
+    selevel: "{{ aselinux.stdout.split(':')[3] }}"
+  when: lookup('ansible.builtin.fileglob', 'files/' + afile.split('/')[-1]) != []
+
+- name: Replace Template
+  ansible.builtin.template:
+    src: "{{ afile.split('/')[-1] }}.j2"
+    dest: "{{ afile }}"
+    owner: "{{ auid.stdout }}"
+    group: "{{ agid.stdout }}"
+    mode: "{{ aperms.stdout }}"
+    seuser: "{{ aselinux.stdout.split(':')[0] }}"
+    serole: "{{ aselinux.stdout.split(':')[1] }}"
+    setype: "{{ aselinux.stdout.split(':')[2] }}"
+    selevel: "{{ aselinux.stdout.split(':')[3] }}"
+  when: lookup('ansible.builtin.fileglob', 'templates/' + afile.split('/')[-1] + '.j2') != []
