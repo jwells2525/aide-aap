@@ -3,10 +3,10 @@
   hosts: rhel1
   sources:
     - ansible.eda.file_watch:
-        path: /tmp/testing/
+        path: /tmp/test.txt
         recursive: false
   rules:
     - name: debug output
       condition: event.type == "FileModifiedEvent"
       action:
-          print_event:
+        print_event:
