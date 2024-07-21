@@ -1,0 +1,8 @@
+---
+- name: Ping Test to Systems
+  hosts: rhel1
+
+  tasks:
+
+    - name: Ping
+      ansible.builtin.ping:

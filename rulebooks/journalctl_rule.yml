@@ -1,0 +1,20 @@
+---
+- name: Listen for events on journald
+  hosts: rhel1
+
+  sources:
+    # https://github.com/ansible/event-driven-ansible/blob/main/extensions/eda/plugins/event_source/journald.py
+    - ansible.eda.journald:
+        match: "ALL"
+
+  rules:
+    - name: Look for foo
+      # https://www.freedesktop.org/software/systemd/man/latest/systemd.journal-fields.html
+      condition: event.journald.message contains "foo"
+      action:
+        #run_job_template: Run foo
+        debug:
+    
+    - name: Return messages when sudo is used
+      ansible.eda.journald:
+        match: "_EXE=/usr/bin/sudo"
