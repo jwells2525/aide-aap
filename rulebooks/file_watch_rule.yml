@@ -5,8 +5,16 @@
     - ansible.eda.file_watch:
         path: /tmp/test.txt
         recursive: false
+#  rules:
+#    - name: debug output
+#      condition: event.type == "FileModifiedEvent"
+#      action:
+#        print_event:
+
   rules:
-    - name: debug output
+    - name: EDA | Ping Test
       condition: event.type == "FileModifiedEvent"
-      action:
-        print_event:
+      actions:
+        - run_job_template:
+            name: "PingTest"
+            organization: "Default"
