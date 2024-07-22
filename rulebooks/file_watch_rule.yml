@@ -5,11 +5,7 @@
     - ansible.eda.file_watch:
         path: /tmp/test.txt
         recursive: false
-#  rules:
-#    - name: debug output
-#      condition: event.type == "FileModifiedEvent"
-#      action:
-#        print_event:
+        ignore_regexes: ['.*\\.pytest.*', '.*__pycache__.*', '.*/.git.*']
 
   rules:
     - name: EDA | Ping Test
