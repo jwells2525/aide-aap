@@ -1,5 +1,5 @@
 ---
-- name: Run the Aide Fixer # noqa syntax_check
+- name: Run the Aide Fixer # noqa syntax-check[specific]
   hosts: "{{ aidehost }}"
   become: true
   gather_facts: false

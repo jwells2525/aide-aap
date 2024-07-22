@@ -11,7 +11,7 @@
     dest: /etc/{{ aidename }}.conf
     owner: root
     group: root
-    mode: 0600
+    mode: '0600'
 
 - name: Copy tester file
   ansible.builtin.copy:
@@ -19,7 +19,7 @@
     dest: /tmp/other.txt
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
 
 - name: Copy tester template
   ansible.builtin.template:
@@ -27,7 +27,7 @@
     dest: /tmp/redhat.txt
     owner: root
     group: root
-    mode: 0644
+    mode: '0644'
 
 - name: Make Temp Dir
   ansible.builtin.file:
@@ -37,7 +37,7 @@
     mode: '0777'
     state: directory
 
-- name: Initalize Aide Database
+- name: Initalize Aide Database # noqa no-changed-when
   ansible.builtin.command: "aide -c /etc/{{ aidename }}.conf --init"
 
 - name: Move New DB to DB
@@ -47,7 +47,7 @@
     dest: /var/lib/aide/{{ aidename }}.db.gz
     owner: root
     group: root
-    mode: 0600
+    mode: '0600'
 
 - name: Copy cron script
   ansible.builtin.template:
@@ -55,5 +55,4 @@
     dest: /root/aidecron
     owner: root
     group: root
-    mode: 0700
-
+    mode: '0700'

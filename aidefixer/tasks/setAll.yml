@@ -1,47 +1,47 @@
 ---
-- name: Get UID Index
+- name: Get UID Index # noqa no-changed-when risky-shell-pipe
   ansible.builtin.shell:
     cmd: AIDEDB=$(/bin/zcat {{ aidedb }} | grep @@db_spec); echo ${AIDEDB[@]/uid//} | cut -d/ -f1 | wc -w
   register: uidpos
   when: true
 
-- name: Set UID
+- name: Set UID # noqa no-changed-when risky-shell-pipe
   ansible.builtin.shell:
     cmd: /usr/bin/id -n -u $(/bin/zcat {{ aidedb }} | grep "{{ afile }} " | cut -d' ' -f"{{ uidpos.stdout }}")
   register: auid
   when: true
 
-- name: Get GID Index
+- name: Get GID Index # noqa no-changed-when risky-shell-pipe
   ansible.builtin.shell:
     cmd: AIDEDB=$(/bin/zcat {{ aidedb }} | grep @@db_spec); echo ${AIDEDB[@]/gid//} | cut -d/ -f1 | wc -w
   register: gidpos
   when: true
 
-- name: Set GID
+- name: Set GID # noqa no-changed-when risky-shell-pipe
   ansible.builtin.shell:
     cmd: /usr/bin/id -n -g $(/bin/zcat {{ aidedb }} | grep "{{ afile }} " | cut -d' ' -f"{{ gidpos.stdout }}")
   register: agid
   when: true
 
-- name: Get Perms Index
+- name: Get Perms Index # noqa no-changed-when risky-shell-pipe
   ansible.builtin.shell:
     cmd: AIDEDB=$(/bin/zcat {{ aidedb }} | grep @@db_spec); echo ${AIDEDB[@]/perm//} | cut -d/ -f1 | wc -w
   register: permspos
   when: true
 
-- name: Set Perms
+- name: Set Perms # noqa no-changed-when risky-shell-pipe
   ansible.builtin.shell:
     cmd: /bin/zcat {{ aidedb }} | grep "{{ afile }} " | cut -d' ' -f"{{ permspos.stdout }}" | rev | cut -b1,2,3,4 | rev
   register: aperms
   when: true
 
-- name: Get SELinux Index
+- name: Get SELinux Index # noqa no-changed-when risky-shell-pipe
   ansible.builtin.shell:
     cmd: AIDEDB=$(/bin/zcat {{ aidedb }} | grep @@db_spec); echo ${AIDEDB[@]/selinux//} | cut -d/ -f1 | wc -w
   register: selinuxpos
   when: true
 
-- name: Set SELinux
+- name: Set SELinux # noqa no-changed-when risky-shell-pipe
   ansible.builtin.shell:
     cmd: /bin/zcat {{ aidedb }} | grep "{{ afile }} " | cut -d' ' -f"{{ selinuxpos.stdout }}" | base64 --decode
   register: aselinux
