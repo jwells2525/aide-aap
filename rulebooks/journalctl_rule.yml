@@ -7,21 +7,9 @@
         match: "ALL"
 
   rules:
-#    - name: EDA | Ping Test
-#      condition: event.journald.message contains "/tmp/test.txt"
-#      actions:
-#        - run_job_template:
-#            name: "PingTest"
-#            organization: "Default"
-#    - name: Print sudo journald event message
-#      condition: event.journald._comm == 'sudo'
-#      action:
-#        print_event:
-#          pretty: true
-#          var_root:
-#            journald.message: journald.message
-    - name: Display event information
-      condition: event.journald._comm in vars.identity_commands
-      action:
-        debug:
-          var: event.journald.message
+    - name: EDA | Ping Test
+      condition: event.journald.message contains "/tmp/test.txt"
+      actions:
+        - run_job_template:
+            name: "PingTest"
+            organization: "Default"
