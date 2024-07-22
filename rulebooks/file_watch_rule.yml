@@ -1,6 +1,7 @@
 ---
-- name: Hello Events
-  hosts: rhel1
+- name: Watch the File
+  hosts: all
+
   sources:
     - ansible.eda.file_watch:
         path: /tmp/test.txt
