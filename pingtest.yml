@@ -1,6 +1,6 @@
 ---
 - name: Ping Test to Systems
-  hosts: rhel1
+  hosts: all
 
   tasks:
 
