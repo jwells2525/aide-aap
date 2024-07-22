@@ -1,6 +1,6 @@
 ---
 - name: Listen for events on journald
-  hosts: rhel1
+  hosts: all
 
   sources:
     - ansible.eda.journald:
