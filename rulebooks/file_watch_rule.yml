@@ -1,6 +1,6 @@
 ---
 - name: Watch the File
-  hosts: all
+  hosts: rhel-1
 
   sources:
     - ansible.eda.file_watch:
