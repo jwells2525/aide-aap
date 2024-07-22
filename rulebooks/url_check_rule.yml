@@ -1,0 +1,17 @@
+---
+- name: Check URL
+  hosts: rhel-1
+
+  sources:
+    - ansible.eda.url_check:
+        urls:
+          - http://google.com
+        delay: 10
+
+  rules:
+    - name: EDA | Ping Test
+      condition: event.url_check.status == "down"
+      actions:
+        - run_job_template:
+            name: "PingTest"
+            organization: "Default"
