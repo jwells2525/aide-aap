@@ -8,7 +8,7 @@
 
   rules:
     - name: EDA | Ping Test
-      condition: event.type == "FileModifiedEvent"
+      condition: event.journald.message contains "/tmp/test.txt"
       actions:
         - run_job_template:
             name: "PingTest"
