@@ -1,0 +1,6 @@
+---
+# defaults file for aidefixer
+aidedb: /var/lib/aide/fixemaide.db.gz
+aideconf: /etc/fixemaide.conf
+
+adj: Awesome

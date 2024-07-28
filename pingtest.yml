@@ -1,6 +1,6 @@
 ---
 - name: Ping Test to Systems
-  hosts: all
+  hosts: pokey
 
   tasks:
 

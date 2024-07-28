@@ -1,0 +1,24 @@
+---
+- name: Copy tester file
+  ansible.builtin.copy:
+    src: other.txt
+    dest: /tmp/other.txt
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Copy tester template
+  ansible.builtin.template:
+    src: redhat.txt.j2
+    dest: /tmp/redhat.txt
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Make Temp Dir
+  ansible.builtin.file:
+    path: /tmp/temp
+    owner: root
+    group: root
+    mode: '0777'
+    state: directory
